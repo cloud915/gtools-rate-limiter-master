@@ -2,12 +2,16 @@
 限流组件
 
 集成tookit时，需要增加配置applicationContext.xml，
+///java
 <import resource="applicationContext-rateLimiter.xml"/>
 <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="location" value="classpath:/ratelimiter-redis.properties"/>
 </bean>
+///
 
 其中引用配置文件ratelimiter-redis.properties必填内容如下：
-rate.limiter.redis.host=****
+"""java
+rate.limiter.redis.host=1.2.3.4
 rate.limiter.redis.port=6379
-rate.limiter.redis.pass=****
+rate.limiter.redis.pass=1234
+"""
