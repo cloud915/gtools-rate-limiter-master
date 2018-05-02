@@ -1,0 +1,18 @@
+/logs
+/target
+/.apt_generated
+/bin/
+/*.classpath
+/*.factorypath
+/*.project
+/.settings
+/gome-finance-gateway.iml
+
+# idea ignore
+.idea/
+*.ipr
+*.iml
+*.iws
+
+disconf/
+target/

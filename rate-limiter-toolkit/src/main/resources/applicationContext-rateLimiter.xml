@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="rateLimiterLua" class="org.springframework.data.redis.core.script.DefaultRedisScript">
+        <property name="location" value="classpath:rateLimit_token_bucket.lua"/>
+        <property name="resultType" value="java.lang.Long"/>
+    </bean>
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!-- 固定的参数可以配置化-->
+        <property name="maxIdle" value="8"/>
+        <property name="minIdle" value="0"/>
+        <property name="maxWaitMillis" value="-1"/>
+    </bean>
+    <!-- 固定的参数可以配置化-->
+    <bean id="connectionFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          p:hostName="${rate.limiter.redis.host}"
+          p:port="${rate.limiter.redis.port}"
+          p:password="${rate.limiter.redis.pass}"
+          p:poolConfig-ref="poolConfig"
+          p:database="0"
+          p:timeout="0"
+    />
+
+    <bean id="stringRedisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="defaultSerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+    </bean>
+
+    <bean id="rateLimiterToolkit" class="com.gomefinance.ratelimiter.toolkit.RateLimiterToolkit">
+        <constructor-arg index="0" ref="stringRedisTemplate"/>
+        <constructor-arg index="1" ref="rateLimiterLua"/>
+    </bean>
+</beans>
