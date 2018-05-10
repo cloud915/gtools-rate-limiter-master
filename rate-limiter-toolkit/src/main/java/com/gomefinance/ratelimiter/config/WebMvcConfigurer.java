@@ -1,7 +1,7 @@
-package com.gomefinance.ratelimiter.web.config;
+package com.gomefinance.ratelimiter.config;
 
+import com.gomefinance.ratelimiter.enums.CommonConfig;
 import com.gomefinance.ratelimiter.toolkit.RateLimiterToolkit;
-import com.gomefinance.ratelimiter.web.constants.RateLimiterConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,10 @@ import java.util.Date;
 public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(WebMvcConfigurer.class);
     //@Value("${rate.limiter.path.Pattern}")
-    private String pathPattern = "/*";
+    private String pathPattern = "/index/*";
+
+    @Autowired
+    private CommonConfig commonConfig;
 
     @Autowired
     private RateLimiterToolkit rateLimiterToolkit;
@@ -49,13 +52,13 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
                     String url = requestMapping.value()[0];
                     //logger.info("[rateLimiterRedisHost]-->" + rateLimiterRedisHost);
                     if (FLAG_INIT == false) {
-                        FLAG_INIT = rateLimiterToolkit.init(RateLimiterConstants.APP,
-                                RateLimiterConstants.getKey("", url),
+                        FLAG_INIT = rateLimiterToolkit.init(commonConfig.getApp(),
+                                commonConfig.getKey("", url),
                                 maxPermits, rateTime);
                     }
 
-                    token = rateLimiterToolkit.acquire(RateLimiterConstants.APP,
-                            RateLimiterConstants.getKey("", url), 1);
+                    token = rateLimiterToolkit.acquire(commonConfig.getApp(),
+                            commonConfig.getKey("", url), 1);
 
                     if (token == false) {
                         response.sendError(500, "[gome finance] Restricting access");

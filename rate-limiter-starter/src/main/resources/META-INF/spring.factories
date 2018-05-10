@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.gomefinance.ratelimiter.configure.RateLimiterConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.gomefinance.ratelimiter.configure.RateLimiterAutoConfiguration

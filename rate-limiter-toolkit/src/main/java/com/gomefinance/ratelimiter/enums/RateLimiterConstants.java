@@ -1,5 +1,8 @@
 package com.gomefinance.ratelimiter.enums;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 /**
  * Created by Administrator on 2018/4/17.
  */
@@ -10,4 +13,5 @@ public class RateLimiterConstants {
     public static final String RATE_LIMITER_INIT_METHOD = "init";
     public static final String RATE_LIMITER_DELETE_METHOD = "delete";
     public static final String RATE_LIMITER_ACQUIRE_METHOD = "acquire";
+
 }
