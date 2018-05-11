@@ -15,3 +15,10 @@ rate.limiter.redis.host=1.2.3.4
 rate.limiter.redis.port=6379
 rate.limiter.redis.pass=1234
 ```
+
+
+限流注解描述：
+```java
+@RateLimiter(maxPermits="最大令牌数",rate="流速，个/秒")
+```
+
