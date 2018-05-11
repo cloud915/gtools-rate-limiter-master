@@ -19,7 +19,7 @@
           class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
           p:hostName="${rate.limiter.redis.host}"
           p:port="${rate.limiter.redis.port}"
-          p:password="${rate.limiter.redis.pass}"
+          p:password="${rate.limiter.redis.password}"
           p:poolConfig-ref="poolConfig"
           p:database="0"
           p:timeout="0"

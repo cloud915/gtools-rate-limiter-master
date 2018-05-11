@@ -1,11 +1,11 @@
-package com.gomefinance.ratelimiter.web.constants;
+package com.gomefinance.ratelimiter.test.constants;
 
 /**
  * Created by Administrator on 2018/4/27.
  */
 public class RateLimiterConstants {
 
-    public static final String APP = "gomefinance.rate.limiter.test";
+    public static final String APP = "gomefinance.rate.limiter.web";
     private static final String KEY = "config.finance";
 
     public static String getKey(String controller, String action) {
