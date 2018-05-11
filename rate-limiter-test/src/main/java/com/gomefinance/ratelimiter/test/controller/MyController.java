@@ -1,6 +1,6 @@
 package com.gomefinance.ratelimiter.test.controller;
 
-import com.gomefinance.ratelimiter.test.config.RateLimiter;
+import com.gomefinance.ratelimiter.config.RateLimiter;
 import com.gomefinance.ratelimiter.test.service.MyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

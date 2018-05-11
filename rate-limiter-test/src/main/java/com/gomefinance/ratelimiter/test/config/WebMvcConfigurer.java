@@ -1,5 +1,7 @@
 package com.gomefinance.ratelimiter.test.config;
 
+import com.gomefinance.ratelimiter.config.RateLimiter;
+import com.gomefinance.ratelimiter.config.RateLimiterGateway;
 import com.gomefinance.ratelimiter.test.constants.RateLimiterConstants;
 import com.gomefinance.ratelimiter.toolkit.RateLimiterToolkit;
 import org.slf4j.Logger;
@@ -25,21 +27,10 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(WebMvcConfigurer.class);
     private String pathPattern = "/my/*";
 
-    @Autowired
-    private RateLimiterToolkit rateLimiterToolkit;
-
-    /*@Value("${rate.limiter.redis.host}")
-    private String rateLimiterRedisHost;*/
-
-    /* public WebMvcConfigurer() {
-         logger.info("[print]" + rateLimiterRedisHost);
-     }
-
-     public WebMvcConfigurer(String pathPattern) {
-         this.pathPattern = pathPattern;
-     }*/
-
     private static boolean FLAG_INIT = false;
+
+    @Autowired
+    private RateLimiterGateway gateway;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -57,14 +48,9 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
                     int rate = rateLimiter.rate();
                     String url = requestMapping.value()[0];
                     //logger.info("[rateLimiterRedisHost]-->" + rateLimiterRedisHost);
-                    if (FLAG_INIT == false) {
-                        FLAG_INIT = rateLimiterToolkit.init(RateLimiterConstants.APP,
-                                RateLimiterConstants.getKey("", url),
-                                maxPermits, rate);
-                    }
 
-                    token = rateLimiterToolkit.acquire(RateLimiterConstants.APP,
-                            RateLimiterConstants.getKey("", url), 1);
+                    token = gateway.getToken(rateLimiter, RateLimiterConstants.APP,
+                            RateLimiterConstants.getKey("", url));
 
                     if (token == false) {
                         response.sendError(500, "[gome finance] Restricting access");

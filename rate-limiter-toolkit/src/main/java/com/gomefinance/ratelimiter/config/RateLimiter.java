@@ -1,4 +1,4 @@
-package com.gomefinance.ratelimiter.test.config;
+package com.gomefinance.ratelimiter.config;
 
 import java.lang.annotation.*;
 
