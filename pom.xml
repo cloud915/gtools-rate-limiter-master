@@ -14,6 +14,7 @@
         <module>rate-limiter-toolkit</module>
         <module>rate-limiter-web</module>
         <module>rate-limiter-test</module>
+        <module>rate-limiter-demo</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
