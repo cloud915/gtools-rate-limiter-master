@@ -92,6 +92,13 @@ public class RateLimiterToolkit {
         return token.isPass() || token.isAccessRedisFail();
     }
 
+    /**
+     *
+     * @param context 应用标识
+     * @param key
+     * @param permits 令牌请求数量
+     * @return
+     */
     private TokenStatus acquireToken(String context, String key, Integer permits) {
         TokenStatus token;
         try {
