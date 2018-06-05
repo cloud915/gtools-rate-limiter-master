@@ -1,8 +1,3 @@
----
---- Created by wukaiqiang.
---- DateTime: 2017/11/9 下午6:39
----
-
 
 --- 判断source_str 中是否contains pattern_str
 --- @param source_str
