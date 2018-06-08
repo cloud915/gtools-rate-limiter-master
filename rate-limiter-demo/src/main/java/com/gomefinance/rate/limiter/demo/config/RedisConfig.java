@@ -26,4 +26,12 @@ public class RedisConfig {
         redisScript.setResultType(Long.class);
         return redisScript;
     }
+
+    @Bean
+    public DefaultRedisScript<Long> redisScript3() {
+        DefaultRedisScript redisScript = new DefaultRedisScript<>();
+        redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("lua/script3.lua")));
+        redisScript.setResultType(Long.class);
+        return redisScript;
+    }
 }
